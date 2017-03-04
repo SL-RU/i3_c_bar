@@ -163,6 +163,39 @@ void ram_get()
     return result;
 }
 
+void cpu_temp()
+{
+    int t = 0;
+    FILE* file = fopen(CPU_TEMP_PATH, "r");
+    fscanf(file, "%d", &t);
+    t /= 1000;
+    fclose(file);
+    sprintf(out, "CPU %d°C", t);
+    if(t > 75)
+	p_ful(out, red);
+    else if(t > 65)
+	p_ful(out, yellow);
+    else
+	p_ful(out, green);
+}
+
+void fan_speed()
+{
+    int t = 0;
+    FILE* file = fopen(FAN_PATH, "r");
+    fscanf(file, "%d", &t);
+    fclose(file);
+    if(t == 0)
+	p_ful("F", gray);
+    else if(t < 3000)
+	p_ful("F", green);
+    else if(t < 3800)
+	p_ful("F", yellow);
+    else
+	p_ful("F", red);
+	
+}
+
 void bat()
 {
     FILE* fp;
@@ -234,6 +267,10 @@ void pr()
     
     printf("[");
     p_ful("E", pings[0] ? green : red);
+    printf(",");
+    cpu_temp();
+    printf(",");
+    fan_speed();
     printf(",");
     cpu_print();
     printf(",");
