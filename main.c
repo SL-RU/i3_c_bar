@@ -192,8 +192,7 @@ void fan_speed()
     else if(t < 3800)
 	p_ful("F", yellow);
     else
-	p_ful("F", red);
-	
+	p_ful("F", red);	
 }
 
 void bat()
@@ -266,28 +265,54 @@ void pr()
     fping();
     
     printf("[");
-    p_ful("E", pings[0] ? green : red);
-    printf(",");
-    cpu_temp();
-    printf(",");
-    fan_speed();
-    printf(",");
-    cpu_print();
-    printf(",");
-    ram_get();
-    printf(",");
-    bat();
-    printf(",");
-    lang();
-    printf(",");
-    timedate();
+    if(NETWORK_REQUIRED)
+    {
+	p_ful("E", pings[0] ? green : red);
+	printf(",");
+    }
+    if(TEMP_REQUIRED)
+    {
+	cpu_temp();
+	printf(",");
+    }
+    if(FAN_REQUIRED)
+    {
+	fan_speed();
+	printf(",");
+    }
+    if(CPU_REQUIRED)
+    {
+	cpu_print();
+	printf(",");
+    }
+    if(RAM_REQUIRED)
+    {
+	ram_get();
+	printf(",");
+    }
+    if(BAT_REUIRED)
+    {
+	bat();
+	printf(",");
+    }
+    if(LANG_REQUIRED)
+    {
+	lang();
+	printf(",");
+    }
+    if(TIME_REQUIRED)
+    {
+	timedate();
+    }
     printf("],\n");
 }
 
 
 int main() {
-    skb_init();
-    cpu_init();
+    if(LANG_REQUIRED)
+	skb_init();
+    if(CPU_REQUIRED)
+	cpu_init();
     
     printf("{ \"version\": 1 }\n");
     printf("[ [],");    
