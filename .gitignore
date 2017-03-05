@@ -101,3 +101,15 @@ REVISION
 /mpc*
 /gmp*
 /isl*
+
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+
+bar

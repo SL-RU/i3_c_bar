@@ -1,6 +1,0 @@
-;; Object c_bar
-;; EDE Project Files are auto generated: Do Not Edit
-(ede-proj-project "c_bar"
-  :file "Project.ede"
-  :name "c_bar"
-  :targets nil)

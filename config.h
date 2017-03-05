@@ -1,6 +1,6 @@
 #define BAT_REUIRED      1
 #define TEMP_REQUIRED    1
-#define FAN_REQUIRED     1
+#define FAN_REQUIRED     0
 #define NETWORK_REQUIRED 1
 #define CPU_REQUIRED     1
 #define RAM_REQUIRED     1
