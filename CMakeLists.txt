@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
-set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 
 project(bar)
+set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(X11 REQUIRED x11)
