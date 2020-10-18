@@ -158,7 +158,7 @@ void ram_get()
     fclose(file);
     result = ava * 100 / tot;
     result = 100 - result;
-    sprintf(out, "RAM: %d%", result);
+    sprintf(out, "RAM: %d%%", result);
     p_ful(out, white);
     return result;
 }
@@ -228,6 +228,45 @@ void bat()
 
     p_ful(capacity, col);
 }
+void bat1()
+{
+    if( access(BAT1_CAP_PATH, F_OK ) == -1 ) {
+        // file doesn't exist
+        p_ful("NA", red);
+        return;
+    } 
+    // file exists
+    FILE* fp;
+    char capacity[255], status[255];
+
+    fp = fopen(BAT1_CAP_PATH, "r");
+    while(fgets(capacity, 255, (FILE*) fp)) {
+    }
+    capacity[strlen(capacity) - 1] = '\0';
+
+    int ca = atoi(capacity);
+    
+    fclose(fp);
+
+    fp = fopen(BAT1_STAT_PATH, "r");
+    while(fgets(status, 255, (FILE*) fp)) {
+    }
+
+    status[strlen(status) - 1] = '\0';
+    char *col = white;
+    if(status[0] != 'D')
+	col = green;
+    else if(ca < 20)
+	col = red;
+    else if(ca < 30)
+	col = orange;
+    else if(ca < 50)
+	col = yellow;
+
+    fclose(fp);
+
+    p_ful(capacity, col);
+}
 char *ping = "nmap -sP --host-timeout 100ms ";
 char *ips[] = {
     "5.255.255.55", //yandex
@@ -265,11 +304,11 @@ void pr()
     fping();
     
     printf("[");
-    if(NETWORK_REQUIRED)
-    {
-	p_ful("E", pings[0] ? green : red);
-	printf(",");
-    }
+    /* if(NETWORK_REQUIRED) */
+    /* { */
+    /*     p_ful("E", pings[0] ? green : red); */
+    /*     printf(","); */
+    /* } */
     if(TEMP_REQUIRED)
     {
 	cpu_temp();
@@ -292,8 +331,10 @@ void pr()
     }
     if(BAT_REUIRED)
     {
-	bat();
-	printf(",");
+      bat();
+      printf(",");
+      bat1();      
+      printf(",");
     }
     if(LANG_REQUIRED)
     {
